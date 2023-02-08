@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework.views import APIView, status
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
 
 
 # Import models and serializers
@@ -9,7 +10,7 @@ from . serializer import AccountSerializer
 
 # Create your views here.
 
-class AccountView(viewsets.ModelViewSet):
+class AccountView(APIView):
     # Get all accounts
     def get(self, request, *args, **kwargs):
         account = Account.objects.all()

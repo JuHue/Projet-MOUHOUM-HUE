@@ -1,3 +1,4 @@
+version: '3.7'
 services:
   db:
     image: postgres
@@ -8,11 +9,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
       - PGUSER = postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-U", "postgres", "-d", "postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5 
     ports:
       - 5432:5432
   web:
@@ -20,11 +16,13 @@ services:
       context: ./back/
       dockerfile: Dockerfile
     # entrypoint: "entrypoint.sh"
-    command: gunicorn back.wsgi:application --bind 0.0.0.0:8000
+    # command: gunicorn back.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     container_name: web-backend
+    environment:
+      - SUPERUSER_PASSWORD=gui10tare
     restart: always
     depends_on:
-      db:
-        condition: "service_healthy"
+      - db
     ports:
       - 8000:8000

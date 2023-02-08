@@ -32,26 +32,31 @@ class AccountManager(BaseUserManager):
             affiliate_to=affiliate_to
         )
 
-        account.set_password(password)
+        #account.set_password(password)
 
         account.save(using=self._db)
         return account
     
     # Create a superuser
     def create_superuser(self, email, username, *args, **kwargs):
-        account = self.create_account(
+        orga = Organisation.objects.get(organisation_id=2)
+        account = self.model(
+            is_superuser=True,
+            is_staff=True,
+            is_active=True,
             email=self.normalize_email(email),
             username=username,
-            password="gui10tare",
-            first_name="",
-            last_name="",
+            # password="gui10tare",
+            first_name="phiphi",
+            last_name="martinez",
             telephone="0698844186",
-            affiliate_to=0
+            affiliate_to=orga
         )
 
         account.is_admin = True
         account.is_staff = True
         account.is_superuser = True
+        account.set_password("gui10tare")
         account.save(using=self._db)
         return account
 
@@ -79,7 +84,7 @@ class Account(AbstractUser):
     account_id = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=150)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     telephone = models.CharField(max_length=15)
