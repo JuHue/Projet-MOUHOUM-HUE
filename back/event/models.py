@@ -3,6 +3,7 @@ from organisation.models import Organisation
 
 import re
 
+
 class EventManager(models.Manager):
     event_min_participant = models.IntegerField(null=True, blank=True)
     def create_event(self, event_name, event_description, event_date, event_time, event_place, event_demonstrate_start_place, event_demonstrate_end_place, event_organisation, event_image, event_video, event_duration, event_strike_fund_like, event_price, event_max_participant, event_min_participant, event_is_active, event_is_public, event_is_free, event_is_online, event_is_private, event_is_cancelled, event_is_full):

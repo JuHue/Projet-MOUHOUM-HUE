@@ -18,8 +18,32 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from account.views import AccountView
+from organisation.views import OrganisationView, Organisation_typeView
+from event.views import EventView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', AccountView.as_view())
+    path('account/', AccountView.as_view()),
+    path('organisation/', OrganisationView.as_view()),
+    path('organisation_type', Organisation_typeView.as_view()),
+    path('event/', EventView.as_view()),
+    path('event/get_all_active_events/', EventView.as_view(), name='get_all_active_events'),
+    path('event/get_all_public_events/', EventView.as_view(), name='get_all_public_events'),
+    path('event/get_all_free_events/', EventView.as_view(), name='get_all_free_events'),
+    path('event/get_all_onlines_events/', EventView.as_view(), name='get_all_onlines_events'),
+    path('event/get_all_private_events/', EventView.as_view(), name='get_all_private_events'),
+    path('event/get_all_canceled_events/', EventView.as_view(), name='get_all_canceled_events'),
+    path('event/get_all_full_events/', EventView.as_view(), name='get_all_full_events'),
+    path('event/get_all_events_of_an_organisation/', EventView.as_view(), name='get_all_events_of_an_organisation'),
+    path('event/get_all_active_events_of_an_organisation/', EventView.as_view(), name='get_all_active_events_of_an_organisation'),
+    path('event/get_all_public_events_of_an_organisation/', EventView.as_view(), name='get_all_public_events_of_an_organisation'),
+    path('event/get_all_free_events_of_an_organisation/', EventView.as_view(), name='get_all_free_events_of_an_organisation'),
+    path('event/get_all_online_events_of_an_organisation/', EventView.as_view(), name='get_all_online_events_of_an_organisation'),
+    path('event/get_all_private_events_of_an_organisation/', EventView.as_view(), name='get_all_private_events_of_an_organisation'),
+    path('event/get_all_canceled_events_of_an_organisation/', EventView.as_view(), name='get_all_canceled_events_of_an_organisation'),
+    path('event/get_all_full_events_of_an_organisation/', EventView.as_view(), name='get_all_full_events_of_an_organisation'),
+    path('event/get_all_events_of_an_account/', EventView.as_view(), name='get_all_events_of_an_account'),
+    path('event/get_all_events_of_an_account/', EventView.as_view(), name='get_all_events_of_an_account'),
+    path('event/get_event_by_id/<int:id>', EventView.as_view(), name='get_event_by_id'),
+    path('event/get_event_by_name/<str:name>', EventView.as_view(), name='get_event_by_name'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

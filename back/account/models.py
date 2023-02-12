@@ -93,4 +93,4 @@ class Account(AbstractUser):
     objects = AccountManager()
 
     def __str__(self):
-        return self.account_id + ' => ' + self.username + ' | ' + self.email
+        return str(self.account_id) + ' => ' + self.username + ' | ' + self.email

@@ -2,22 +2,19 @@ from django.shortcuts import render
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
-
-
-# Import models and serializers
+from rest_framework.decorators import action
 from . models import AccountManager, Account
 from . serializer import AccountSerializer
 
-# Create your views here.
+
 
 class AccountView(APIView):
-    # Get all accounts
+
     def get(self, request, *args, **kwargs):
         account = Account.objects.all()
         serializer = AccountSerializer(account, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    # Create a new account
+
     def post(self, request, *args, **kwargs):
         serializer = AccountSerializer(data=request.data)
         if serializer.is_valid():
@@ -33,7 +30,6 @@ class AccountView(APIView):
             return Response(serializer(new_account).data, status=status.HTTP_201_CREATED)
 
 
-    # Create put methd for update account
     def put(self, request, *args, **kwargs):
         serializer = AccountSerializer(data=request.data)
         if serializer.is_valid():
@@ -48,7 +44,6 @@ class AccountView(APIView):
             )
             return Response(serializer(updated_account).data, status=status.HTTP_201_CREATED)
 
-    # Create delete method for delete account
     def delete(self, request, *args, **kwargs):
         serializer = AccountSerializer(data=request.data)
         if serializer.is_valid():

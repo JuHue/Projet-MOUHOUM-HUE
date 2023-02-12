@@ -1,6 +1,4 @@
 from rest_framework import serializers
-
-# import models
 from . models import Organisation, Organisation_type
 
 class OrganisationSerializer(serializers.ModelSerializer):

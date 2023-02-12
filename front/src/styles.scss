@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+@use 'palette';
+
+
+
+@include mat.core();
+
+$front-primary: mat.define-palette(palette.$custom-primary);
+$front-accent: mat.define-palette( palette.$custom-secondary, A200, A100, A400);
+
+
+$front-warn: mat.define-palette(mat.$red-palette);
+
+
+
+$front-theme: mat.define-light-theme((
+  color: (
+    primary: $front-primary,
+    accent: $front-accent,
+    warn: $front-warn,
+  )
+));
+
+
+@include mat.all-component-themes($front-theme);
+
+@font-face {
+    font-family: Rosario-Bold;
+    src: url('assets/fonts/Rosario-Bold.ttf');
+};
+
+html, body { height: 100%; };
+body { 
+    margin: 0; 
+    font-family: Rosario-Bold, sans-serif; 
+};
