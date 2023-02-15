@@ -8,7 +8,7 @@
 @include mat.core();
 
 $front-primary: mat.define-palette(palette.$custom-primary);
-$front-accent: mat.define-palette( palette.$custom-secondary, A200, A100, A400);
+$front-accent: mat.define-palette( palette.$custom-secondary);
 
 
 $front-warn: mat.define-palette(mat.$red-palette);
@@ -31,8 +31,26 @@ $front-theme: mat.define-light-theme((
     src: url('assets/fonts/Rosario-Bold.ttf');
 };
 
-html, body { height: 100%; };
-body { 
-    margin: 0; 
-    font-family: Rosario-Bold, sans-serif; 
-};
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0; 
+  font-family: Rosario-Bold, sans-serif; 
+}
+app-root {
+  height: 100%;
+  width: 100%;
+}
+// main {
+//   flex: 1 0 auto;
+//   width: 100%;
+// }
+
+// .test {
+//   height: 100%;
+//   width: 100%;
+// }

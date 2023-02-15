@@ -1,1 +1,11 @@
-<p>header works!</p>
+<div class="logo-container">
+    <img src="../../assets/img/png/manifyzer-without-icon.png" routerLink="" class="logo" alt="">
+    <span class="links">
+        <h4 [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"><a routerLink="signin" class="unactive-link">Sign In</a></h4>
+        <h4 [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"><a routerLink="signup" class="unactive-link">Sign Up</a></h4>
+    </span>
+</div>
+
+<mat-toolbar *ngIf="this.router.url === '/' " color="accent" class="navbar">
+
+</mat-toolbar>

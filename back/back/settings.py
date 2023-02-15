@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
+
 from pathlib import Path
 import os
 
@@ -57,8 +59,36 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
+# CORS_ALLOW_CREDENTIALS = True
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "UPDATE_LAST_LOGIN": False,
+
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": 'gui10tare',
+    "VERIFYING_KEY": "",
+    "AUDIENCE": None,
+    "ISSUER": None,
+    "JSON_ENCODER": None,
+    "JWK_URL": None,
+    "LEEWAY": 0,
+    'USER_ID_FIELD': 'account_id',
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 # Application definition
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,6 +102,7 @@ INSTALLED_APPS = [
     'account',
     'organisation',
     'event',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [

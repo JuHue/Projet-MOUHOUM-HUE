@@ -21,11 +21,22 @@ from account.views import AccountView
 from organisation.views import OrganisationView, Organisation_typeView
 from event.views import EventView
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('account/', AccountView.as_view()),
+    path('account/authenticate/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('account/authenticate/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('account/get_all_accounts/', AccountView.as_view(), name='get_all_accounts'),
     path('organisation/', OrganisationView.as_view()),
     path('organisation_type', Organisation_typeView.as_view()),
+
     path('event/', EventView.as_view()),
     path('event/get_all_active_events/', EventView.as_view(), name='get_all_active_events'),
     path('event/get_all_public_events/', EventView.as_view(), name='get_all_public_events'),
@@ -46,4 +57,5 @@ urlpatterns = [
     path('event/get_all_events_of_an_account/', EventView.as_view(), name='get_all_events_of_an_account'),
     path('event/get_event_by_id/<int:id>', EventView.as_view(), name='get_event_by_id'),
     path('event/get_event_by_name/<str:name>', EventView.as_view(), name='get_event_by_name'),
+    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

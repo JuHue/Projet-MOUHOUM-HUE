@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[197],{2062:function(t,e,n){"use strict";n.r(e);n(29);var o={transition:"fade",props:{logo:{type:Object,required:!0}},created(){this.$router.replace("/dashboard/".concat(this.logo.id,"/stitch/business-cards"))}},r=n(7),component=Object(r.a)(o,(function(){return(0,this._self._c)("div")}),[],!1,null,null,null);e.default=component.exports}}]);
-//# sourceMappingURL=aaf369c.modern.js.map

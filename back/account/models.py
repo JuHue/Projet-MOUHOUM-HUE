@@ -22,7 +22,7 @@ class AccountManager(BaseUserManager):
             raise ValueError('account must have a telephone')
         # if not affiliate_to:
         #     raise ValueError('users must have a affiliate_to')
-        
+        # affiliate_to_obj = Organisation.objects.get(organisation_id=affiliate_to)
         account = self.model(
             email=self.normalize_email(email),
             username=username,
@@ -32,7 +32,7 @@ class AccountManager(BaseUserManager):
             affiliate_to=affiliate_to
         )
 
-        #account.set_password(password)
+        account.set_password(password)
 
         account.save(using=self._db)
         return account
@@ -77,6 +77,9 @@ class AccountManager(BaseUserManager):
         account.affiliate_to=affiliate_to
         account.save()
         return account
+    
+    def get_account_by_username(self, username):
+        return self.get(username=username)
 
 
 
@@ -91,6 +94,10 @@ class Account(AbstractUser):
     affiliate_to = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=False)
 
     objects = AccountManager()
+
+    USERNAME_FIELD = 'username'
+    PASSWORD_FIELD = 'password'
+
 
     def __str__(self):
         return str(self.account_id) + ' => ' + self.username + ' | ' + self.email

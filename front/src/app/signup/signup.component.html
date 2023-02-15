@@ -1,1 +1,70 @@
-<p>signup works!</p>
+<div class="wrapper">
+    <div class="container">
+            <div layout="column">
+                <form action="" [formGroup]="this.form">
+                    <div class="left-side">
+                        <div class="input-container">
+                            <mat-form-field>
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email"   id="Email">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-container">
+                            <mat-form-field>
+                                <mat-label>Username</mat-label>
+                                <input matInput formControlName="username"  id="Username">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-container">
+                            <mat-form-field>
+                                <mat-label>Password</mat-label>
+                                <input matInput formControlName="password" type="password" id="Password">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-container">
+                            <mat-form-field>
+                                <mat-label>Password confirmation</mat-label>
+                                <input matInput formControlName="passwordConfirmation"  type="password" id="PasswordConfirmation">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-container">
+                            <button mat-stroked-button color="accent" class="signup-button" (click)="this.onSubmit()" [disabled]="this.form.valid">Sign Up</button>
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <div layout-xs="column" layout-gt-xs="row">
+                            <div class="input-container">
+                                <mat-form-field>
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput formControlName="first_name"  id="firstName">
+                                </mat-form-field>
+                            </div>
+                            <div class="input-container">
+                                <mat-form-field>
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput formControlName="last_name"  id="lastName">
+                                </mat-form-field>
+                            </div>
+                            <div class="input-container">
+                                <mat-form-field>
+                                    <mat-label>Telephone</mat-label>
+                                    <input matInput formControlName="telephone"  id="Telephone">
+                                </mat-form-field>
+                            </div>
+                            <div class="input-container">
+                                <mat-form-field>
+                                    <mat-label>Affiliate To</mat-label>
+                                    <mat-select matInput formControlName="affiliate_to" name="orgas" id="">
+                                        <mat-option 
+                                        *ngFor="let orga of allOrganisations" 
+                                        [value]="orga.organisation_id"
+                                        [attr.selected]="orga.full_name">{{orga.full_name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
