@@ -13,7 +13,8 @@ export class SigninComponent implements OnInit {
   public authForm!: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -27,8 +28,25 @@ export class SigninComponent implements OnInit {
     })
   }
 
-  public onSubmit () {
-    this.httpClient.authenticate(this.authForm.value);
-    
+  public async onSubmit () {
+    // await this.httpClient.authenticate(this.authForm.value)
+    // .then((response: boolean) => {
+    //   if (response) {
+    //     this.httpClient.fetchAccount(this.authForm.value.username)
+    //     .then((res: boolean) => {
+    //       if (res) {
+    //         this.router.navigate(['/'])
+    //         }
+    //     });
+    //   }
+    // });
+    // this.router.navigate(['/']);
+
+    const bool1 = await this.httpClient.authenticate(this.authForm.value)
+    console.log(this.httpClient.client.defaults.headers.common['Authorization'])
+    const bool2 = await this.httpClient.fetchAccount(this.authForm.value.username)
+    if (bool1 && bool2) {
+      this.router.navigate(['/'])
+    }
   }
 }

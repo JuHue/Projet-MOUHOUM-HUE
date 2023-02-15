@@ -67,10 +67,28 @@ class AccountView(APIView):
             return Response(serializer(deleted_account).data, status=status.HTTP_200_OK)
         
     @permission_classes([IsAuthenticated])
-    @action(methods=['get'], detail=True, url_path=r'account/get_account_by_username', name='get_account_by_username')
+    @action(methods=['get'], detail=False, url_path=r'/get_account_by_username/', name='get_account_by_username')
     def get_account_by_username(self, request, *args, **kwargs):
-        serializer = AccountSerializer(data=json.loads(request.data.get('param')))
+        print(request.data.get('params'), file=sys.__stderr__)
+        serializer = AccountSerializer(data=json.loads(request.data.get('params')))
         if serializer.is_valid():
             account = AccountManager.get_account_by_username(serializer.validated_data['username'])
             return Response(serializer(account).data, status=status.HTTP_200_OK)
+        
+
+
+class AccountByUsernameView(APIView):
+    @permission_classes([IsAuthenticated])
+    def get(self, request, *args, **kwargs):
+        print(request.data, file=sys.__stderr__)
+        print(request, file=sys.__stderr__)
+        print(request.body, file=sys.__stderr__)
+        data = request.data.get('params')
+        print(data, file=sys.__stderr__)
+        if data != None:
+            account = Account.objects.get_account_by_username(data['username'])[0]
+            print(account, file=sys.__stderr__)
+            print(AccountSerializer(account).data, file=sys.__stderr__)
+            return Response(AccountSerializer(account).data, status=status.HTTP_200_OK)
+        return Response("Account does not exists", status=status.HTTP_400_BAD_REQUEST)
         

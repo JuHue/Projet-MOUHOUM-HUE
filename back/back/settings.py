@@ -59,9 +59,9 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
-SIMPLE_JWT = {
+SIMPLE_JWT = {  
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,

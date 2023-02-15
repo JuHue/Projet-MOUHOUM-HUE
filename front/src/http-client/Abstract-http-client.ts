@@ -6,7 +6,7 @@ declare module 'axios' {
 }
 
 export abstract class AbstractHttpClient {
-    protected readonly client: AxiosInstance;
+    public readonly client: AxiosInstance;
 
     private handleResponse = ({data}: AxiosResponse) => data;
     protected handleError = (error: any) => Promise.reject(error);
@@ -16,7 +16,7 @@ export abstract class AbstractHttpClient {
             baseURL,
             timeout: 10000,
             headers: {
-                token: accountService.getTokenAccess()
+                Authorization: '',
             },
         });
 

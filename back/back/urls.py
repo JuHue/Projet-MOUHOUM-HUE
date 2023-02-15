@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from account.views import AccountView
+from account.views import AccountView, AccountByUsernameView
 from organisation.views import OrganisationView, Organisation_typeView
 from event.views import EventView
 
@@ -32,8 +32,9 @@ urlpatterns = [
 
     path('account/', AccountView.as_view()),
     path('account/authenticate/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('account/authenticate/refresh', TokenRefreshView.as_view(), name='token_refresh'),
-    path('account/get_all_accounts/', AccountView.as_view(), name='get_all_accounts'),
+    path('account/authenticate/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('account/get_account_by_username/', AccountByUsernameView.as_view()),
     path('organisation/', OrganisationView.as_view()),
     path('organisation_type', Organisation_typeView.as_view()),
 

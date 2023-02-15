@@ -79,7 +79,7 @@ class AccountManager(BaseUserManager):
         return account
     
     def get_account_by_username(self, username):
-        return self.get(username=username)
+        return self.filter(username=username)
 
 
 
