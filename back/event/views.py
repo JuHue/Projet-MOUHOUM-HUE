@@ -190,3 +190,6 @@ class EventView(APIView):
         event = Event.objects.get_event_by_name(request.GET.get('name'))
         serializer = EventSerializer(event, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def test(): 
+        return Response("test", status=status.HTTP_200_OK)

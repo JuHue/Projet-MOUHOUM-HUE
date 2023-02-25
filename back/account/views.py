@@ -79,15 +79,10 @@ class AccountView(APIView):
 
 class AccountByUsernameView(APIView):
     @permission_classes([IsAuthenticated])
-    def get(self, request, *args, **kwargs):
-        print(request.data, file=sys.__stderr__)
-        print(request, file=sys.__stderr__)
-        print(request.body, file=sys.__stderr__)
-        data = request.data.get('params')
-        print(data, file=sys.__stderr__)
+    def post(self, request, *args, **kwargs):
+        data = request.data.get('param')
         if data != None:
-            account = Account.objects.get_account_by_username(data['username'])[0]
-            print(account, file=sys.__stderr__)
+            account = Account.objects.get_account_by_username(data)[0]
             print(AccountSerializer(account).data, file=sys.__stderr__)
             return Response(AccountSerializer(account).data, status=status.HTTP_200_OK)
         return Response("Account does not exists", status=status.HTTP_400_BAD_REQUEST)

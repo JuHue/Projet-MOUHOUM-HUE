@@ -45,17 +45,13 @@ export class HttpClient extends AbstractHttpClient {
     }
 
     public async fetchAccount (username: string): Promise<boolean> {
-        console.log(username);
-        const requestPayload: AxiosRequestConfig = {};
-        requestPayload.data = {param: username};
         try{
-            this.client.get('/account/get_account_by_username/', requestPayload)
+            this.client.post('account/get_account_by_username/', {param: username})
                 .then((response: any) => {
                     if (response !== null && response !== undefined) {
-                        console.log(response)
                         let acc: account = response as account
-                        console.log(acc)
                         this.accountService.setAccount(acc)
+                        console.log(this.accountService.getAccount())
                         return true;
                     }
                     return false

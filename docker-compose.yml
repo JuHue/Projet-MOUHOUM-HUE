@@ -19,6 +19,8 @@ services:
     # command: gunicorn back.wsgi:application --bind 0.0.0.0:8000
     command: python manage.py runserver 0.0.0.0:8000
     container_name: web-backend
+    volumes:
+      - ./back:/code
     environment:
       - SUPERUSER_PASSWORD=gui10tare
     restart: always

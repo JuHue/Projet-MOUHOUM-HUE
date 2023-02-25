@@ -24,6 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { AccountComponent } from './account/account.component';
 
 
 
@@ -35,7 +36,8 @@ import { MatSelectModule } from '@angular/material/select';
     FooterComponent,
     HomeComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

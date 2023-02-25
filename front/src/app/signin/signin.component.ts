@@ -29,24 +29,20 @@ export class SigninComponent implements OnInit {
   }
 
   public async onSubmit () {
-    // await this.httpClient.authenticate(this.authForm.value)
-    // .then((response: boolean) => {
-    //   if (response) {
-    //     this.httpClient.fetchAccount(this.authForm.value.username)
-    //     .then((res: boolean) => {
-    //       if (res) {
-    //         this.router.navigate(['/'])
-    //         }
-    //     });
-    //   }
-    // });
-    // this.router.navigate(['/']);
+    this.httpClient.authenticate(this.authForm.value)
+      .then((bool: boolean) => {
+        if (bool) {
+          this.httpClient.fetchAccount(this.authForm.value.username)
+            .then((bool2: boolean) => {
+              if (bool2) {
+                this.router.navigate(['/'])
+              }
+            })
+        }
+      }) 
 
-    const bool1 = await this.httpClient.authenticate(this.authForm.value)
-    console.log(this.httpClient.client.defaults.headers.common['Authorization'])
     const bool2 = await this.httpClient.fetchAccount(this.authForm.value.username)
-    if (bool1 && bool2) {
-      this.router.navigate(['/'])
-    }
+    
+
   }
 }
