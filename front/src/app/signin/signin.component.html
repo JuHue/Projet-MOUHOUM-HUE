@@ -1,0 +1,29 @@
+<div class="wrapper">
+    <div class="title">
+        <h1>Welcome back Comrade !</h1>
+    </div>
+    <div class="container">
+            <div class="left-side">
+                <form [formGroup]="this.authForm">
+                    <div class="input-container">
+                        <mat-form-field>
+                            <mat-label>Username</mat-label>
+                            <input matInput formControlName="username"  id="Username">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input matInput formControlName="password" type="password" id="Password">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <button mat-stroked-button color="accent" class="signup-button" (click)="this.onSubmit()" [disabled]="this.authForm.invalid">Sign In</button>
+                    </div>
+                </form>
+            </div>
+        <span class="right-side">
+            <img src="../../assets/img/marx_lase_eyes.gif" alt="">
+        </span>
+    </div>
+</div>

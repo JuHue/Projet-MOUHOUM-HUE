@@ -1,0 +1,36 @@
+.logo-container{
+    margin-top: 1rem;
+    margin-left: 1%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    width: 100%;
+}
+
+.logo {
+    max-width: 400px;
+    max-height: 56.5px;
+}
+
+.navbar {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+    width: 98%;
+    margin-left: 1%;
+    border-radius: 10px;
+}
+
+.links {
+    position: absolute;
+    right: 0;
+    float: right;
+    margin-right: 1.5%;
+}
+
+a {
+    color: primary;
+    font-family: Rosario-Bold, sans-serif; 
+}
+
+.unactive-link {
+    color: rgba(0, 0, 0, 1);
+    text-decoration: none;
+}

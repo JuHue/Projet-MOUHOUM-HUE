@@ -1,0 +1,26 @@
+.wrapper {
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+
+.container {
+    width: 450px;
+    border: #000000 solid 1px;
+    border-radius: 10px;
+    // align center horizontally
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 2.5% 0 2.5% 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.left-side {
+    float: left;
+    padding-left: 2.5%;
+}
+
+.right-side {
+    float: right;
+    padding-right: 2.5%;
+}
