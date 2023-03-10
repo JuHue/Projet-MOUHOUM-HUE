@@ -1,0 +1,73 @@
+<div class="container">
+    <mat-card class="wrapper">
+        <mat-card-header class="event-header">
+            <mat-card-title><h1>{{this.currEvent.event_name}}</h1></mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="event-body">
+            <mat-drawer-container class="body">
+                <mat-drawer mode="side" opened class="left-body">
+                    <div class="event-info">
+                        <div class="title">
+                            {{this.currEvent.event_date| date: 'fullDate'}}
+                        </div>
+                        <div class="time">
+                            {{this.currEvent.event_time}} - {{this.eventEndTime}}
+                        </div>
+                        <div class="place" *ngIf="this.currEvent.event_place !== ''">
+                            {{this.currEvent.event_place}}
+                        </div>
+
+                        <div class="place" *ngIf="this.currEvent.event_demonstrate_start_place !== '' && this.currEvent.event_demonstrate_end_place !== ''">
+                            <br>
+                            {{this.currEvent.event_demonstrate_start_place}}
+                            <br>
+                            {{this.currEvent.event_demonstrate_end_place}}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="organizer-name" *ngIf="this.allOrgasLoaded">
+                        <p>
+                            {{this.currOrganisation.full_name}}
+                        </p>
+                        <span *ngIf="this.currOrganisation.address !== 'N/A' || this.currOrganisation.address !== null ||  this.currOrganisation.address !== undefined">
+                            {{this.currOrganisation.address}}
+                        </span>
+                        <span *ngIf="this.currOrganisation.city !== 'N/A' || this.currOrganisation.city !== null ||  this.currOrganisation.city !== undefined">
+                            {{', ' +this.currOrganisation.city}}
+                        </span>
+                        <span *ngIf="this.currOrganisation.departement !== 'N/A' || this.currOrganisation.departement !== null ||  this.currOrganisation.departement !== undefined">
+                            {{', ' +this.currOrganisation.departement}}
+                        </span>
+                        <span *ngIf="this.currOrganisation.region !== 'N/A' || this.currOrganisation.region !== null ||  this.currOrganisation.region !== undefined">
+                            {{', ' +this.currOrganisation.region}}
+                        </span>
+                    </div>
+                    <hr>
+                    <div class="calendar-reminder" *ngIf="this.eventIsLoaded">
+                        <add-to-calendar-button
+                            [attr.name]="this.currEvent.event_name"
+                            [attr.description]="this.currEvent.event_description"
+                            [attr.startDate]="this.currEvent.event_date"
+                            [attr.startTime]="this.currEvent.event_time"
+                            [attr.endTime]="this.eventEndTime"
+                            [attr.location]="this.eventLocStart"
+                            options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
+                            trigger="click"
+                            buttonStyle="round">
+                            </add-to-calendar-button>
+                    </div>
+                </mat-drawer>
+                <mat-drawer-content class="right-body">
+                    <div #map id="map" style="height: 250px;"></div>
+                    <div class="event-description">
+                        <p>
+                            {{this.currEvent.event_description}}
+                        </p>
+                    </div>
+                </mat-drawer-content>
+            </mat-drawer-container>
+        </mat-card-content>
+    </mat-card>
+</div>

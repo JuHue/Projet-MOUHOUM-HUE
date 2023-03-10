@@ -1,0 +1,81 @@
+// .wrapper {
+//     height: auto;
+//     width: 100%;
+//     display: flex;
+//     @media (max-width: 768px) {
+//         flex-direction: column;
+//     }
+//     @media (max-width: 480px) {
+//         flex-direction: column;
+//     }
+// }
+
+.container {
+    width: 55%;
+    border: #000000 solid 1px;
+    border-radius: 10px;
+    margin: auto;
+    padding: 2.5% 0 2.5% 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+    @media (max-width: 768px) {
+        width: 350px;
+    }
+    @media (max-width: 480px) {
+        width: 250px;
+    }
+}
+
+form {
+    // make left-side and right-side align one in front of the other
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
+
+}
+
+.left-side {
+    float: left;
+    //padding-left: 2.5%;
+    @media (max-width: 768px) {
+        padding-left: 0;
+    }
+    @media (max-width: 480px) {
+        padding-left: 0;
+    }
+}
+
+.right-side {
+    float: right;
+    //padding-right: 2.5%;
+    @media (max-width: 768px) {
+        padding-right: 0;
+    }
+    @media (max-width: 480px) {
+        padding-right: 0;
+    }
+}
+
+.next-button {
+    //make the submit button float to the bottom right
+    float: right;
+    bottom: 0;
+    margin-right: 2.5%;
+    @media (max-width: 768px) {
+        margin-right: 0;
+    }
+    @media (max-width: 480px) {
+        margin-right: 0;
+    }
+
+}
+
+.file-input {
+    display: none;
+}

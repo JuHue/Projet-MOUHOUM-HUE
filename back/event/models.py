@@ -2,11 +2,11 @@ from django.db import models
 from organisation.models import Organisation
 
 import re
+import datetime
 
 
 class EventManager(models.Manager):
-    event_min_participant = models.IntegerField(null=True, blank=True)
-    def create_event(self, event_name, event_description, event_date, event_time, event_place, event_demonstrate_start_place, event_demonstrate_end_place, event_organisation, event_image, event_video, event_duration, event_strike_fund_like, event_price, event_max_participant, event_min_participant, event_is_active, event_is_public, event_is_free, event_is_online, event_is_private, event_is_cancelled, event_is_full):
+    def create_event(self, event_name, event_description, event_date, event_time, event_place, event_demonstrate_start_place, event_demonstrate_end_place, event_organisation, event_image, event_video, event_duration, event_strike_fund_link, event_price, event_max_participant, event_min_participant, event_is_active, event_is_public, event_is_free, event_is_online, event_is_cancelled, event_is_full):
         if not event_name:
             raise ValueError('event must have a name')
         if not event_description:
@@ -15,24 +15,27 @@ class EventManager(models.Manager):
             raise ValueError('event must have a date')
         if not event_time:
             raise ValueError('event must have a time')
-        if not event_place or (not event_demonstrate_start_place and not event_demonstrate_end_place):
+        if (not event_place) and (not event_demonstrate_start_place or not event_demonstrate_end_place):
             raise ValueError('event must have a place')
         if not event_organisation:
             raise ValueError('event must have an organisation')
 
+        orga = Organisation.objects.get(organisation_id=event_organisation)
+        time = datetime.datetime.strptime(event_time, '%H:%M:%S')
+        duration = datetime.datetime.strptime(event_duration, '%H:%M:%S')
         event = self.model(
             event_name=event_name,
             event_description=event_description,
             event_date=event_date,
-            event_time=event_time,
+            event_time=time,
             event_place=event_place,
             event_demonstrate_start_place=event_demonstrate_start_place,
             event_demonstrate_end_place=event_demonstrate_end_place,
-            event_organisation=event_organisation,
+            event_organisation=orga,
             event_image=event_image,
             event_video=event_video,
-            event_duration=event_duration,
-            event_strike_fund_like=event_strike_fund_like,
+            event_duration=duration,
+            event_strike_fund_link=event_strike_fund_link,
             event_price=event_price,
             event_max_participant=event_max_participant,
             event_min_participant=event_min_participant,
@@ -40,14 +43,13 @@ class EventManager(models.Manager):
             event_is_public=event_is_public,
             event_is_free=event_is_free,
             event_is_online=event_is_online,
-            event_is_private=event_is_private,
             event_is_cancelled=event_is_cancelled,
             event_is_full=event_is_full
         )
         event.save(using=self._db)
         return event
 
-    # Update an event
+
     def update_event(self, event_id,event_name, event_description, event_date, event_time, event_place, event_demonstrate_start_place, event_demonstrate_end_place, event_organisation, event_image, event_video, event_duration, event_strike_fund_like, event_price, event_max_participant, event_min_participant, event_is_active, event_is_public, event_is_free, event_is_online, event_is_cancelled, event_is_full):
         event=self.get(event_id=event_id)
         event.name=event_name
@@ -148,8 +150,8 @@ class Event(models.Model):
     event_demonstrate_start_place = models.CharField(max_length=255, null=True, blank=True)
     event_demonstrate_end_place = models.CharField(max_length=255, null=True, blank=True)
     event_organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=False)
-    event_image = models.ImageField(upload_to='event_images/', null=True, blank=True)
-    event_video = models.FileField(upload_to='event_videos/', null=True, blank=True)
+    event_image = models.ImageField(upload_to='images/', default='images/default.png', blank=True)
+    event_video = models.FileField(upload_to='images/', default='images/default.png', blank=True)
     event_duration = models.TimeField(null=True, blank=True)
     event_strike_fund_link = models.URLField(null=True, blank=True)
     event_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
@@ -166,3 +168,23 @@ class Event(models.Model):
 
     def __str__(self):
         return self.event_name
+    
+    def __unicode__(self):
+        return self.event_name
+
+    def image_img(self):
+        if self.event_image:
+            return u'<img src="%s" />' % self.event_image.url
+        else:
+            return '(No image)'
+    image_img.short_description = 'Image'
+    image_img.allow_tags = True
+
+    def video_img(self):
+        if self.event_video:
+            return u'<img src="%s" />' % self.event_video.url
+        else:
+            return '(No video)'
+    video_img.short_description = 'Video'
+    video_img.allow_tags = True
+    

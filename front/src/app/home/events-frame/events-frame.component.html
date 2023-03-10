@@ -1,0 +1,12 @@
+<div class="container">
+    <mat-card class="card-wrapper" *ngFor="let event of this.events; index as i" tabindex="{{i}}">
+        <mat-card-content>
+            <mat-card-title>{{event.event_name}}</mat-card-title>
+        </mat-card-content>
+        <mat-card-actions class="buttons">
+            <button mat-button (click)="this.navigateToEventDetail(event.event_id)">DETAILS</button>
+            <button mat-button (click)="this.copyLinkToClipboard(event.event_id)">SHARE</button>
+        </mat-card-actions>
+        <img src="" alt="">
+    </mat-card>
+</div>

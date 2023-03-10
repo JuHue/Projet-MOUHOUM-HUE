@@ -1,4 +1,59 @@
+<mat-toolbar color="accent" class="navbar">
+    <div class="toolbar-container">
+        <div class="search-container">
+            <mat-form-field class="search">
+                <input matInput placeholder="Search" [(ngModel)]="this.searchInput" (keyup)="this.searchEvents()">
+            </mat-form-field>
+        </div>
+        <div class="get-all-active-event">
+            <button mat-raised-button color="primary" (click)="this.getAllActiveEvents()">Get all active events</button>
+        </div>
+        <div class="get-all-active-event">
+            <button mat-raised-button color="primary" (click)="this.getAllActiveEvents()">Get all online events</button>
+        </div>
+        <div class="get-all-active-event">
+            <button mat-raised-button color="primary" (click)="this.getAllActiveEvents()">Get all free events</button>
+        </div>
+        <div class="reset-filter">
+            <button mat-raised-button color="primary" (click)="this.resetFilter()">Reset filter</button>
+        </div>
+    </div>
+    <div class="create-event" (click)="this.changeContent()">
+       <ng-container *ngIf="this.isEventFormOpen; else elseTemplate">
+            <H4> < </H4>
+       </ng-container>
+       <ng-template #elseTemplate>
+            <H4>+</H4>
+       </ng-template>
+       
+       
+    </div>
+</mat-toolbar>
 <div class="container">
-    <img src="../../assets/img/png/manifyzer-icon-only.png" class="icon" alt="">
+    <div class="leftIcon">
+        <img src="../../assets/img/png/manifyzer-icon-only.png" class="icon" alt="">
+    </div>
+    <div class="right-content">
+        <ng-container #HomeContent [ngTemplateOutlet]="EventDisplay">
+        </ng-container>
+    </div>
 </div>
+
+
+
+<ng-template #EventDisplay class="right-display">
+    <app-events-frame [events]="this.eventsToShow"></app-events-frame>
+    <div class="pagination">
+        <mat-paginator
+        color="accent"
+        [length]="this.allEvents.length"
+        [pageSize]="6"
+        showFirstLastButtons
+        (page)="this.changePaginationEvents($event)">
+        </mat-paginator>
+    </div>
+</ng-template>
+<ng-template #EventForm>
+    <app-event-form></app-event-form>
+</ng-template>
 

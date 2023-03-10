@@ -20,6 +20,7 @@
                     <div class="input-container">
                         <button mat-stroked-button color="accent" class="signup-button" (click)="this.onSubmit()" [disabled]="this.authForm.invalid">Sign In</button>
                     </div>
+                    <span color="primary">{{this.errorForm}}</span>
                 </form>
             </div>
         <span class="right-side">
