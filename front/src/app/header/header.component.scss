@@ -3,31 +3,58 @@
     margin-left: 1%;
     margin-bottom: 1.5rem;
     display: flex;
-    width: 100%;
+    max-width: 100%;
+    @media (max-width: 768px) {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    @media (max-width: 480px) {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
 }
 
 .logo {
     max-width: 400px;
     max-height: 56.5px;
-}
+    @media (max-width: 768px) {
+        max-width: 300px;
+        max-height: 42.5px;
+        display: block;
+    }
+    @media (max-width: 480px) {
+        max-width: 200px;
+        max-height: 28.5px;
+        display: block;
+    }
 
-.navbar {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-    width: 98%;
-    margin-left: 1%;
-    border-radius: 10px;
 }
 
 .links {
     position: absolute;
     right: 0;
     float: right;
-    margin-right: 1.5%;
+    padding-right: 1.5%;
+    color: primary;
+    font-family: Rosario-Bold, sans-serif;
+    @media (max-width: 768px) {
+        display: inline;
+        padding-right: 0;
+    }
+    @media (max-width: 480px) {
+        display: inline;
+        padding-right: 0;
+    }
 }
 
 a {
     color: primary;
     font-family: Rosario-Bold, sans-serif; 
+}
+
+.logout {
+    color: primary;
+    font-family: Rosario-Bold, sans-serif;
 }
 
 .unactive-link {

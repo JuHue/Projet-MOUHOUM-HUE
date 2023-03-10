@@ -2,18 +2,36 @@
     height: auto;
     width: 100%;
     display: flex;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
 }
 
 .title {
     position: absolute;
     left: 31.5%;
     height: min-content;
+    @media (max-width: 768px) {
+        left: 25%;
+    }
+    @media (max-width: 480px) {
+        left: 20%;
+    }
 }
 
 h1 {
     font-size: 3rem;
     font-weight: 700;
     font-family: 'Rosario-Bold';
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+    @media (max-width: 480px) {
+        font-size: 1.5rem;
+    }
 }
 
 mat-label {
@@ -32,17 +50,50 @@ input {
     margin-top: 5%;
     padding: 2.5% 0 2.5% 0;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+    @media (max-width: 768px) {
+        width: 350px;
+    }
+    @media (max-width: 480px) {
+        width: 250px;
+    }
 }
 
 .left-side {
     float: left;
     padding-top: 12.5%;
     padding-left: 2.5%;
+    @media (max-width: 768px) {
+        padding-left: 0;
+    }
+    @media (max-width: 480px) {
+        padding-left: 0;
+    }
 }
 
 .right-side {
     float: right;
     padding-right: 2.5%;
+    @media (max-width: 768px) {
+        padding-right: 0;
+    }
+    @media (max-width: 480px) {
+        padding-right: 0;
+    }
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    //make it responsive
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+    }
+    @media (max-width: 480px) {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 

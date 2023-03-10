@@ -23,9 +23,6 @@ class AccountView(APIView):
     
     def post(self, request, *args, **kwargs):
         serializer = AccountSerializer(data=json.loads(request.data.get('param')))
-        print(serializer, file=sys.__stderr__)
-        print(serializer.is_valid(), file=sys.__stderr__)
-
         if serializer.is_valid():
             print(serializer.validated_data, file=sys.__stderr__)
             new_account = Account.objects.create_account(

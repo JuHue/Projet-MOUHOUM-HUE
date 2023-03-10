@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, ValidatorFn, Validators, ValidationErrors } from '@angular/forms';
-import { Organisation } from '../../models/organisation.model';
+import { Organisation } from '../models/organisation.model';
 import { HttpClient } from '../../http-client';
+import { AccountService } from '../services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +20,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
   public formError = ''
   constructor(
     private fb: FormBuilder,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router,
+    private accService: AccountService
   ) { }
 
   ngOnInit(): void {
@@ -59,10 +63,10 @@ export class SignupComponent implements OnInit, AfterViewInit {
   }
 
   public onSubmit (){
-    this.httpClient.postAccount(JSON.stringify(this.form.value))
+    this.accService.registerAccount(this.form.value)
     this.form.reset()
     this.form.setErrors(null)
     this.form.updateValueAndValidity()
-    console.log("success")
+    this.router.navigate(['/signin'])
   }
 }

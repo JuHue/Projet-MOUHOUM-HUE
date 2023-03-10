@@ -1,8 +1,8 @@
 import AbstractHttpClient from './http-client/Abstract-http-client';
 import { Injectable } from '@angular/core';
-import { Organisation } from './models/organisation.model';
-import { account } from './models/account.model';
-import { AccountService } from './services/account.service';
+import { Organisation } from './app/models/organisation.model';
+import { account } from './app/models/account.model';
+import { AccountService } from './app/services/account.service';
 import { AxiosRequestConfig } from 'axios';
 
 @Injectable({
@@ -10,18 +10,18 @@ import { AxiosRequestConfig } from 'axios';
   })
 export class HttpClient extends AbstractHttpClient {
     constructor(
-        public accountService: AccountService
     ) {
-        super('http://0.0.0.0:8000', accountService)
+        super('http://0.0.0.0:8000')
     }
 
     public getOrganisations = () => this.client.get<Organisation[]>('/organisation');
 
     public postAccount = (form: any) => {
-        this.client.post('/account/', {param: form})
+        this.client.post('/account/', {param: JSON.stringify(form)})
     }
 
-    public async authenticate (authForm: any): Promise<boolean>  {
+    public authenticate (authForm: any): any {
+        let result = null
         this.client.post('/account/authenticate/', 
           {
             username: authForm.username, 
@@ -30,40 +30,39 @@ export class HttpClient extends AbstractHttpClient {
         )
             .then((response: any) => {
                 if (response !== null && response !== undefined) {
-                    this.accountService.setTokenAccess(response.access)
-                    this.accountService.setTokenRefresh(response.refresh)
-                    this.client.defaults.headers.common['Authorization'] = `Bearer ${this.accountService.getTokenAccess()}`
-                    return true
+                    result = response
+                } else {
+                    result = ''
                 }
-                return false
             })
             .catch((error: any) => {
                 console.log(error)
-                return false
+                result = ''
             })
-        return false
+        return result
     }
 
-    public async fetchAccount (username: string): Promise<boolean> {
+    public setAuthHeader (token: string) {
+        this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    }
+
+    public async fetchAccount (username: string): Promise<account | null> {
         try{
             this.client.post('account/get_account_by_username/', {param: username})
                 .then((response: any) => {
                     if (response !== null && response !== undefined) {
-                        let acc: account = response as account
-                        this.accountService.setAccount(acc)
-                        console.log(this.accountService.getAccount())
-                        return true;
+                        return response as account
                     }
-                    return false
+                    return null
                 })
                 .catch((error: any) => {
                     console.log(error)
-                    return false
+                    return null
                 })
-            return false;
+            return null;
         } catch (err) {
             console.log(err)
-            return false
+            return null
         }
     }
 }

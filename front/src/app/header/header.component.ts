@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {account} from 'src/models/account.model';
-import { AccountService } from 'src/services/account.service';
+import { AfterViewInit, Component, ChangeDetectorRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
+import {account} from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account.service';
 
 
 @Component({
@@ -9,40 +9,51 @@ import { AccountService } from 'src/services/account.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
+  @ViewChild('LeftLinks', {read: ViewContainerRef}) leftLinksRef!: ViewContainerRef;
+  @ViewChild('NotLogged', {read: TemplateRef}) notLoggedRef!: TemplateRef<any>;
+  @ViewChild('Logged', {read: TemplateRef}) loggedRef!: TemplateRef<any>;
 
-  public nullAccount: account = new account(0, '', '', '', '', '', '', 0);
+
+  public currAcc: account = new account(0, '', '', '', '', '', '', 0);
+  private defaultAcc: account = new account(0, '', '', '', '', '', '', 0);
+  public currRoute: string = this.router.url;
 
   constructor(
     public router: Router,
     public accountService: AccountService,
-  ) { 
-  }
-
-  public currRoute: string = this.router.url;
-
-  public isLogged: boolean = false;
+    private cdRef: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.currRoute)
-    console.log(this.router.url)
+    this.accountService.account.subscribe((account: account) => {
+      if (account !== this.defaultAcc) {
+        this.currAcc = account;
+      }
+    })
+  }
 
-    this.chekIfLogged()
-    
+  ngAfterViewInit(): void {
+    this.accountService.isLogged.subscribe((isLogged: boolean) => {
+      this.render(isLogged)
+    })
+    this.cdRef.detectChanges();
   }
 
   clickBrandName () {
   }
 
-  chekIfLogged () {
-    let currAccount: account = this.accountService.getAccount()
-    if (!currAccount.equals(this.nullAccount)){
-      this.isLogged = true;
+  public render(isLogged: boolean) {
+    this.leftLinksRef.clear()
+    if (isLogged) {
+      this.leftLinksRef.createEmbeddedView(this.loggedRef)
+    } else {
+      this.leftLinksRef.createEmbeddedView(this.notLoggedRef)
     }
   }
 
   public logOut () {
-    this.accountService.resetService()
+    this.accountService.logout()
   }
 
 }

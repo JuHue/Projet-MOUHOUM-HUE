@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from organisation.models import Organisation
-# from django.apps import apps
 
-# organisation = apps.get_model('organisation', 'Organisations')
 
 class AccountManager(BaseUserManager):
 
@@ -14,15 +12,8 @@ class AccountManager(BaseUserManager):
             raise ValueError('account must have a username')
         if not password:
             raise ValueError('account must have a password')
-        # if not first_name:
-        #     raise ValueError('users must have a first name')
-        # if not last_name:
-        #     raise ValueError('users must have a last_name')
         if not telephone:
             raise ValueError('account must have a telephone')
-        # if not affiliate_to:
-        #     raise ValueError('users must have a affiliate_to')
-        # affiliate_to_obj = Organisation.objects.get(organisation_id=affiliate_to)
         account = self.model(
             email=self.normalize_email(email),
             username=username,
@@ -37,7 +28,6 @@ class AccountManager(BaseUserManager):
         account.save(using=self._db)
         return account
     
-    # Create a superuser
     def create_superuser(self, email, username, *args, **kwargs):
         orga = Organisation.objects.get(organisation_id=2)
         account = self.model(
@@ -46,7 +36,6 @@ class AccountManager(BaseUserManager):
             is_active=True,
             email=self.normalize_email(email),
             username=username,
-            # password="gui10tare",
             first_name="phiphi",
             last_name="martinez",
             telephone="0698844186",

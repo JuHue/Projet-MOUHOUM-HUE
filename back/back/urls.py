@@ -59,4 +59,4 @@ urlpatterns = [
     path('event/get_event_by_id/<int:id>', EventView.as_view(), name='get_event_by_id'),
     path('event/get_event_by_name/<str:name>', EventView.as_view(), name='get_event_by_name'),
     
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT_IMAGES)

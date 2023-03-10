@@ -19,7 +19,6 @@ export class account {
         this.affiliateTo = affiliateTo;
     }
 
-    // generate all getters and setters
     public getAccountId = () => this.accountId;
     public setAccountId = (accountId: number) => this.accountId = accountId;
     public getEmail = () => this.email;

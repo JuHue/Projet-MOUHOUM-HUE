@@ -18,6 +18,11 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# set the media url to upload images and videos
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_ROOT_IMAGES = os.path.join(BASE_DIR, 'images')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -87,7 +92,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    )
+    ),
+    'DATETIME_INPUT_FORMATS': ['%Y-%m-%d',],
+    'DATETIME_FORMAT': '%Y-%m-%d',
+    'DATE_FORMAT': '%Y-%m-%d',
 }
 
 INSTALLED_APPS = [

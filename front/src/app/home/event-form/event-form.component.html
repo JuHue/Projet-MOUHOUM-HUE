@@ -1,0 +1,175 @@
+<div class="container">
+    <mat-stepper
+    [linear]="true"
+    #stepper
+    >
+    <mat-step [stepControl]="this.firstFormGroup">
+        <ng-template matStepLabel>Basic Info</ng-template>
+        <form action="" [formGroup]="this.firstFormGroup">
+            <div class="left-side">
+                <div class="input-container">
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" id="name">
+                    </mat-form-field>
+                </div>
+                <div class="input-container">
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Explain why your event is important" formControlName="description" id="description"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="input-container">
+                    <mat-form-field>
+                        <mat-label>date</mat-label>
+                        <input matInput [matDatepicker]="picker"
+                        formControlName="date" id="date">
+                        <mat-hint>YYYY-MM-DD</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker>
+                        </mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="input-container">
+                    <mat-form-field>
+                        <mat-label>Time</mat-label>
+                        <input matInput formControlName="time" id="time">
+                        <mat-hint>hh:mm:ss</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="right-side">
+                <div layout-xs="column" layout-gt-xs="row">
+                    <div class="input-container">
+                        <mat-checkbox
+                        color="accent"
+                        formControlName="isADemonstration" id="isADemonstration">
+                        Your event is a demonstration ?
+                        </mat-checkbox>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field>
+                            <mat-label>place</mat-label>
+                            <input matInput formControlName="place"  id="place">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field>
+                            <mat-label>Start place</mat-label>
+                            <input matInput formControlName="startPlace"  id="startPlace">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field>
+                           <mat-label>End place</mat-label>
+                           <input matInput formControlName="endPlace"  id="endPlace">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="next-button">
+            <button mat-stroked-button color="accent" class="next-button" matStepperNext [disabled]="!this.firstFormGroup.valid">Next</button>
+        </div>
+    </mat-step>
+
+    <mat-step [stepControl]="this.secondFormGroup">
+        <ng-template matStepLabel>More details</ng-template>
+        <form action="" [formGroup]="this.secondFormGroup">
+            <div class="left-side">
+                <div class="input-container">
+                    <mat-label>Affiliate To</mat-label>
+                        <mat-select matInput formControlName="affiliateTo" name="orgas" id="affiliateTo">
+                            <mat-option 
+                            *ngFor="let orga of allOrganisations" 
+                            [value]="orga.organisation_id"
+                            [attr.selected]="orga.full_name">{{orga.full_name}}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="input-container">
+                    <mat-form-field>
+                        <mat-label>Event duration</mat-label>
+                        <input matInput formControlName="eventDuration" id="eventDuration">
+                        <mat-hint>hh:mm</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="input-container">
+                    <mat-form-field>
+                        <mat-label>Event strike fund link</mat-label>
+                        <input matInput formControlName="eventStrikeFundLink" id="eventStrikeFundLink">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="right-side">
+                <div layout-xs="column" layout-gt-xs="row">
+                    <div class="input-container">
+                        <mat-form-field>
+                            <mat-label>Event Price</mat-label>
+                            <input matInput formControlName="eventPrice"  id="eventPrice">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field>
+                            <mat-label>Event max participant</mat-label>
+                            <input matInput formControlName="eventMaxParticipant"  id="eventMaxParticipant">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field>
+                           <mat-label>Event min participant</mat-label>
+                           <input matInput formControlName="eventMinParticipant"  id="eventMinParticipant">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="next-button">
+            <button mat-stroked-button color="accent" class="next-button" matStepperNext [disabled]="!this.firstFormGroup.valid">Next</button>
+        </div>
+    </mat-step>
+
+    <mat-step [stepControl]="this.thirdFormGroup">
+        <ng-template matStepLabel>Final Step</ng-template>
+        <form [formGroup]="this.thirdFormGroup">
+            <div class="left-side">
+                <div class="input-container">
+                    <mat-checkbox
+                    color="accent"
+                    formControlName="eventIsActive" id="eventIsActive">
+                    Your event is active ?
+                    </mat-checkbox>
+                </div>
+                <div class="input-container">
+                    <mat-checkbox
+                    color="accent"
+                    formControlName="eventIsPublic" id="eventIsPublic">
+                    Your event is public ?
+                    </mat-checkbox>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="input-container">
+                    <mat-checkbox
+                    color="accent"
+                    formControlName="eventIsFree" id="eventIsFree">
+                    Your event is free ?
+                    </mat-checkbox>
+                </div>
+                <div class="input-container">
+                    <mat-checkbox
+                    color="accent"
+                    formControlName="eventIsOnline" id="eventIsOnline">
+                    Your event is a online ?
+                    </mat-checkbox>
+                </div>
+            </div>
+        </form>
+        <div class="submit-button">
+            <button mat-stroked-button color="accent" class="submit-button" (click)="this.onSubmit(); stepper.reset()" [disabled]="!this.firstFormGroup.valid">Submit</button>
+        </div>
+    </mat-step>
+
+
+</mat-stepper>
+</div>
